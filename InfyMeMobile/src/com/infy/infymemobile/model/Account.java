@@ -5,7 +5,7 @@ import java.time.LocalDate;
 public class Account {
 
 		// TODO Auto-generated method stub
-		private long accountNumber;
+		private Long accountNumber;
 		private String bankName;
 		private  Double balance;
 		private String accountType;
@@ -13,7 +13,8 @@ public class Account {
 		private Long mobileNumber;
 		
 		
-		public Account(long accountNumber, String bankName, Double balance, String accountType, LocalDate openingDate,
+		
+		public Account(Long accountNumber, String bankName, Double balance, String accountType, LocalDate openingDate,
 				Long mobileNumber) {
 			super();
 			this.accountNumber = accountNumber;
@@ -23,10 +24,10 @@ public class Account {
 			this.openingDate = openingDate;
 			this.mobileNumber = mobileNumber;
 		}
-		public long getAccountNumber() {
+		public Long getAccountNumber() {
 			return accountNumber;
 		}
-		public void setAccountNumber(long accountNumber) {
+		public void setAccountNumber(Long accountNumber) {
 			this.accountNumber = accountNumber;
 		}
 		public String getBankName() {
@@ -62,5 +63,5 @@ public class Account {
 		
 		
 		
-
+		
 }

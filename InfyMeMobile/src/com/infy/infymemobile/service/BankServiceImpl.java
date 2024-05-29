@@ -1,32 +1,59 @@
 package com.infy.infymemobile.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
+import com.infy.infymemobile.dto.BankDAO;
+import com.infy.infymemobile.exception.BankException;
 import com.infy.infymemobile.model.Account;
-import com.infy.infymemobile.model.Transaction;
+import com.infy.infymemobile.model.Login;
+import com.infy.infymemobile.validator.AccountValidator;
+import com.infy.infymemobile.validator.LoginValidator;
 
-public abstract class BankServiceImpl implements BankService {
-    private Map<Long, List<Account>> mobileToAccountsMap;
-    private List<Transaction> transactions;
+public class BankServiceImpl implements BankService{
 
-    public BankServiceImpl() {
-        this.mobileToAccountsMap = new HashMap<>();
-        this.transactions = new ArrayList<>();
-    }
+	public String LoginUser(Login login) throws BankException {
+		String message = LoginValidator.LoginValidate(login);
+		return message;
+	}
 
-    @Override
-    public String loginUser(long mobileNo) {
-        // Assuming some logic for login, for example, checking if the mobile number exists
-        if (mobileToAccountsMap.containsKey(mobileNo)) {
-            return "Login successful.";
-        } else {
-            return "Invalid mobile number. Please try again.";
-        }
-    }
+ 
+	public String createAccount(Account account) throws BankException {
+		String message = AccountValidator.createAccount(account);
+		return message;		
+	}
 
-    // Implement other methods of the BankService interface
-    // createAccount, viewAllAccounts, linkAccount, checkBalance, fundTransfer, viewAllTransactions
+ 
+	
+	public List<Account> viewAllAccounts(Long mobileNo) {
+		return BankDAO.viewAllAccounts(mobileNo);
+	}
+
+ 
+	
+	public String linkAccount(Long MobileNo, Long AccountNo) {
+		if(BankDAO.linkAccount(MobileNo, AccountNo)==true) {
+			return "Account is linked to given mobileNo";
+		}
+		return "Account is not linked to given mobileNo";
+	}
+
+ 
+	
+	public Double checkBalance(Long MobileNo, Long AccountNo) {
+		return BankDAO.checkBalance(MobileNo, AccountNo);
+	}
+
+ 
+	
+	public String fundTransfer(Transaction transaction) throws BankException {
+		String message = TransactionValidator.TransactionValidate(transaction);
+		return message;
+	}
+
+ 
+	
+	public List<Transaction> viewAllTransaction(Long MobileNo) {
+		return BankDAO.viewAllTransactiondao(MobileNo);
+	}
+ 
 }
